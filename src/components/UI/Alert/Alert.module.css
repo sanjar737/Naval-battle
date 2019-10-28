@@ -1,0 +1,21 @@
+.Alert{
+    padding: 50px;
+    border: 2px solid rgba(255, 72, 72, 0.5);
+    border-radius: 5px;
+    box-shadow: 4px 4px 10px -4px rgba(0,0,0,0.75);
+    margin-top: 300px;
+    position: absolute;
+    z-index: 1;
+    width: 400px;
+    background: linear-gradient(135deg, rgba(255,232,232,1) 0%, rgba(255,255,255,1) 0%, rgba(255,232,163,1) 49%, rgba(255,206,201,1) 100%);
+}
+.Alert h1{
+    color: rgba(255, 72, 72, 1);
+    margin-bottom: 50px;
+    text-align: center;
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.44);
+}
+.Alert .button{
+    display: flex;
+    justify-content: center;
+}

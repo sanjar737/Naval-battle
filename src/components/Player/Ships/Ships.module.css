@@ -1,0 +1,10 @@
+.Ships {
+    margin-top: 60px;
+}
+.Ships h1 {
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.44);
+    font-weight: normal;
+    color: #fff;
+    font-size:25px;
+    margin: 0 0 20px 0;
+}

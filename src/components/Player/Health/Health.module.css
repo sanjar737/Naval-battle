@@ -1,0 +1,19 @@
+.Health {
+    table-layout: fixed;
+    border: 2px solid rgba(255, 72, 72, 0.5);
+    margin: 5px;
+}
+.Health td{
+    box-sizing: border-box;
+    width: 15px;
+    height: 20px;
+    text-align: center;
+    border: 2px solid rgba(255, 72, 72, 0.5);
+    transition: 0.5s ease-in-out;
+}
+.Health td.hp {
+    background: rgba(215, 255, 36, 0.5);
+}
+.Health td.hit {
+    background: rgba(255, 0, 0, 0.5);
+}

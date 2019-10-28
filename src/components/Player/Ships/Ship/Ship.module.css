@@ -1,0 +1,22 @@
+.Ship {
+    table-layout: fixed;
+    border: 2px solid rgba(255, 72, 72, 0.5);
+    margin: 5px auto;
+}
+.Ship th{
+    font-weight: normal;
+}
+.Ship td{
+    box-sizing: border-box;
+    width: 20px;
+    height: 20px;
+    text-align: center;
+    border: 2px solid rgba(255, 72, 72, 0.5);
+    transition: 0.1s ease-in-out;
+}
+.Ship td.ship {
+    background: rgba(215, 255, 36, 0.5);
+}
+.Ship td.hit {
+    background: rgba(255, 0, 0, 0.5);
+}

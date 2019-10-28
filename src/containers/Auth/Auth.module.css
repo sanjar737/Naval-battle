@@ -1,0 +1,16 @@
+.Auth {
+    display: flex;
+    justify-content:  center;
+    width: 100%;
+    padding-top: 200px;
+}
+.Auth h1 {
+    text-shadow: 4px 4px 10px rgba(0,0,0,0.44);
+    color: #fff;
+    margin-bottom: 50px;
+    text-align: center;
+}
+.Auth form {
+    width: 600px;
+    padding: 25px;
+}
