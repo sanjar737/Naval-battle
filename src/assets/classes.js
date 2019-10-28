@@ -161,7 +161,7 @@ export class Battlefield {
 export class Player {
     constructor(name, player, ships, battlefield) {
         this.isWinner = false
-        this.firing = false
+        this.move = false
         this.name = name
         this.isPlayer = player
         this.ships = ships
@@ -189,7 +189,11 @@ export class Player {
 
         //проверка точки координат на одно из значений указаных выше 
         switch (target.battlefield[i][j]) {
-            case 1:
+            case 1://если по координатам есть палуба то попадание
+                //назначить обьекту стрелку еще один ход
+                this.move=true
+                target.move=false
+
                 //у обьекта цели меняем значение ячейки поля боя на 'попал'
                 target.battlefield[i][j] = 2
 
@@ -218,13 +222,18 @@ export class Player {
 
                 }
                 return 2
-            case 0:
-                //отметить промах на поле боя цели
+            case 0://если по координатам пусто то промах
+                //передать ход цели
+                this.move=false
+                target.move=true
+
                 target.battlefield[i][j] = 3
                 return 3
-            case 2:
-            case 3:
-                //выстрел по данным координатам уже был выполнен
+            case 2://если по координатам был выстрел с попаданием 
+            case 3://или если по координатам был выстрел с промахом
+                //назначить обьекту стрелку еще один ход
+                this.move=true
+                target.move=false
                 return 4
             default:
                 break;
@@ -236,44 +245,30 @@ export class Player {
     randomShoot(target, timeout = 1000) {
         return new Promise((resolve) => {
             //отметить начало ведения огня
-            this.firing = true
             let i = getRandomInt(9)
             let j = getRandomInt(9)
             let timerId = setTimeout(() => {
                 const resultShot = this.shot(target, i, j)
-                //если выстрел вернул промах, то вернуть результат, 
-                //если выстрел вернул попадание или повторный выстрел, то повторить случайный выстрел
-                switch (resultShot) {
-                    case 3://промах
-                        resolve(resultShot)
-                        break;
-                    case 2://попадание
-                    case 4://повторный выстрел
-                        this.randomShoot(target, 0).then(result => {
-                            this.firing = false
-                            resolve(result)
-                        })
-                        break
-                    default:
-                        break;
+                //если стрелок ходит, то повторить случайный выстрел иначе вернуть результат
+                if(this.move) {
+                    this.randomShoot(target, 0).then(result => {
+                        resolve(result)
+                    })
+                } else {
+                    resolve(resultShot)
                 }
-                //отметить завершение ведения огня
-                this.firing = false
                 clearTimeout(timerId);
             }, timeout)
         });
-
     }
 
     coordinateShoot(target, i, j, timeout = 0) {
         return new Promise((resolve) => {
-            this.firing = true
             let timerId = setTimeout(() => {
                 
                 const resultShot = this.shot(target, i, j)
                 resolve(resultShot)
                 
-                this.firing = false
                 clearTimeout(timerId);
             }, timeout)
         });

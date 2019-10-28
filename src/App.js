@@ -83,9 +83,10 @@ class App extends Component {
 
     //создание обьектов ('игрок', 'компьютер') класса "игрок" для будущих обьектов 
     const player = new Player(playerName, true, battlefieldForPlayer.ships, battlefieldForPlayer.battlefield)
+    
     const enemy = new Player(enemyName, false, battlefieldForEnemy.ships, battlefieldForEnemy.battlefield)
-
-    //добавление обьектов ('игрок', 'компьютер') в состояние приложения
+    player.move = true
+    //добавление обьектов ('игрок', 'противник') в состояние приложения
     this.setState({
       players: {
         player,
@@ -119,29 +120,31 @@ class App extends Component {
 
     //если элемент по которому был совершен клик не является селектором "TD",
     //или игрок ведет огонь, или враг ведет огонь тогда остановить выполнение обработчика
-    if (e.target.tagName !== 'TD' || player.firing === true || enemy.firing === true) {
+    if (e.target.tagName !== 'TD' ) {
       return
     }
 
-    let i = e.target.parentElement.rowIndex - 1
-    let j = e.target.cellIndex - 1
-
-    //игрок совершает выстрел по противнику по указанным координатам
-    player.coordinateShoot(enemy, i, j)
-      .then(result => {
-        this.setState({
-          players
-        })
-        if (result === 3) {
-          //противник стреляет в ответ по случайным координатам
-          enemy.randomShoot(player)
-          .then(result => {
-            this.setState({
-              players
-            })
+    if ( player.move ) {
+      let i = e.target.parentElement.rowIndex - 1
+      let j = e.target.cellIndex - 1
+  
+      //игрок совершает выстрел в противника по указанным координатам
+      player.coordinateShoot(enemy, i, j)
+        .then(result => {
+          this.setState({
+            players
           })
-        }
-      })
+          if ( enemy.move ) {
+            enemy.randomShoot(player)
+            .then(result => {
+              this.setState({
+                players
+              })
+            })
+            return
+          }
+        })
+    }
   }
 
   //обработчик начала новой игры (сброс всего состояния приложения на значение по умолчанию)

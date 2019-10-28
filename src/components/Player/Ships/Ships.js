@@ -12,7 +12,6 @@ export default function Ships({ ships }) {
 
     return (
         <div className={cssClasses.Ships}>
-            <h1>Squadron</h1>
             {shipsList}
         </div>
     )

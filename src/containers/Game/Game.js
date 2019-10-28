@@ -10,6 +10,7 @@ function Game({player, enemy, onShotHandler, winner, newGameHandler}) {
         return (
             <div className={cssClasses.Game}>
                 <Player
+                    move={player.move}
                     maxHp={player.maxHp}
                     hp={player.hp}
                     battlefield={player.battlefield}
@@ -18,6 +19,7 @@ function Game({player, enemy, onShotHandler, winner, newGameHandler}) {
                     player={player.isPlayer}
                 />
                 <Player
+                    move={enemy.move}
                     maxHp={enemy.maxHp}
                     hp={enemy.hp}
                     battlefield={enemy.battlefield}

@@ -7,3 +7,6 @@
     display: flex;
     justify-content: space-evenly;
 }
+.Player .move{
+    font-size: 20px;
+}
